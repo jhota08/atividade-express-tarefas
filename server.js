@@ -33,7 +33,24 @@ app.get('/tarefas/:id', (req, res) =>{
    
 });
 
-app.post('/tarefas',(req,res)=>{
+function autenticar(req,res,next){
+    console.log('Autenticação realizada');
+    next();
+}
+
+function validarBody(req,res,next){
+    console.log('Validação do Body realizada');
+    next();
+}
+
+function registrarLog(req,res,next){
+    console.log('Registro  Log realizado');
+    next();
+}
+
+
+
+app.post('/tarefas',[autenticar,validarBody,registrarLog],(req,res)=>{
     const novaTarefa = {
         id: tarefas.length + 1,
         titulo: req.body.titulo,
