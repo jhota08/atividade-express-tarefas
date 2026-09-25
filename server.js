@@ -15,6 +15,18 @@ app.get('/tarefas', (req, res) =>{
     res.json(tarefas)
 });
 
+app.get('/tarefas/:id', (req, res) =>{
+    const id = Number(req.params.id);
+    
+    for(let tarefa of tarefas){
+        if(tarefa.id ===id){
+            return res.json(tarefa);
+        }
+    }
+    res.status(404).json({erro:'Tarefa não encontrada'});
+   
+});
+
 app.listen(3000, () =>{
     console.log('Servidor rodando na porta 3000')
 
