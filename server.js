@@ -1,6 +1,8 @@
 const express = require('express');
 
 const app = express();
+app.use(express.json());
+
 const tarefas =[
     {id:1, titulo:'Estudar JavaScript', concluida: false},
     {id:2, titulo:'Fazer atividade de Express', concluida:true},
@@ -30,6 +32,17 @@ app.get('/tarefas/:id', (req, res) =>{
     res.status(404).json({erro:'Tarefa não encontrada'});
    
 });
+
+app.post('/tarefas',(req,res)=>{
+    const novaTarefa = {
+        id: tarefas.length + 1,
+        titulo: req.body.titulo,
+        concluida: false
+    };
+
+    tarefas.push(novaTarefa);
+    res.status(201).json(novaTarefa);
+})
 
 app.listen(3000, () =>{
     console.log('Servidor rodando na porta 3000')
