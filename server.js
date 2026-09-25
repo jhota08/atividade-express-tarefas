@@ -12,7 +12,11 @@ app.get('/', (req, res) =>{
 });
 
 app.get('/tarefas', (req, res) =>{
-    res.json(tarefas)
+    if(req.query.concluida === 'true'){
+        return res.json(tarefas.filter(tarefa => tarefa.concluida === true));
+    
+    }
+    res.json(tarefas);
 });
 
 app.get('/tarefas/:id', (req, res) =>{
